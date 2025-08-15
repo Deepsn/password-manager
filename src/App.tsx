@@ -1,11 +1,12 @@
 import { EntryList } from "./layout/entry-list";
 import "./App.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
 function App() {
 	return (
-		<main>
+		<ThemeProvider defaultTheme="system">
 			<EntryList />
-		</main>
+		</ThemeProvider>
 	);
 }
 
