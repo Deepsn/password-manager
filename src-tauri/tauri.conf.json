@@ -13,7 +13,8 @@
     "windows": [
       {
         "title": "password-manager",
-        "width": 800,
+        "resizable": false,
+        "width": 400,
         "height": 600
       }
     ],
