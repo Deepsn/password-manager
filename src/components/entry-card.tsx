@@ -1,4 +1,5 @@
 import {
+	CopyIcon,
 	EllipsisIcon,
 	KeyRoundIcon,
 	PencilIcon,
@@ -6,6 +7,7 @@ import {
 	Trash2Icon,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardAction,
@@ -18,8 +20,6 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -29,6 +29,10 @@ interface EntryCardProps {
 }
 
 export function EntryCard({ name, type }: EntryCardProps) {
+  function handleEntryAction(action: string) {
+
+  }
+
 	return (
 		<Card onClick={() => console.log("Card clicked")}>
 			<CardHeader>
@@ -36,23 +40,28 @@ export function EntryCard({ name, type }: EntryCardProps) {
 
 				<CardDescription>testemail@email.com</CardDescription>
 
-				<CardAction>
-					<DropdownMenu>
+				<CardAction className="flex flex-col align-middle">
+					<Button variant={"ghost"} onClick={() => handleEntryAction("copy")}>
+						<CopyIcon />
+					</Button>
+
+					<DropdownMenu >
 						<DropdownMenuTrigger className="cursor-pointer">
-							<EllipsisIcon />
+  						<Button variant={"ghost"}>
+  							<EllipsisIcon />
+  						</Button>
 						</DropdownMenuTrigger>
+
 						<DropdownMenuContent className="w-56" align="start">
-							<DropdownMenuLabel>Actions</DropdownMenuLabel>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem>
+							<DropdownMenuItem onClick={() => handleEntryAction("edit")}>
 								<PencilIcon />
 								Edit
 							</DropdownMenuItem>
-							<DropdownMenuItem>
+							<DropdownMenuItem onClick={() => handleEntryAction("pin")}>
 								<PinIcon />
 								Pin
 							</DropdownMenuItem>
-							<DropdownMenuItem>
+							<DropdownMenuItem onClick={() => handleEntryAction("delete")}>
 								<Trash2Icon />
 								Delete
 							</DropdownMenuItem>

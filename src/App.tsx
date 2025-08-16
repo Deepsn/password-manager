@@ -1,13 +1,13 @@
-import { EntryList } from "./layout/entry-list";
 import "./App.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import { useAtom } from "jotai";
+import { EntryList } from "@/layout/entry-list";
+import { PasswordPrompt } from "@/layout/password-prompt";
+import { strongholdLoaded } from "@/lib/jotai/atoms";
 
 function App() {
-	return (
-		<ThemeProvider defaultTheme="system">
-			<EntryList />
-		</ThemeProvider>
-	);
+	const [loaded] = useAtom(strongholdLoaded);
+
+	return loaded ? <EntryList /> : <PasswordPrompt />;
 }
 
 export default App;
