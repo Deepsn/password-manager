@@ -1,21 +1,7 @@
-import {
-	CopyIcon,
-	EllipsisIcon,
-	KeyRoundIcon,
-	PencilIcon,
-	PinIcon,
-	Trash2Icon,
-} from "lucide-react";
+import { CopyIcon, EllipsisIcon, KeyRoundIcon, PencilIcon, PinIcon, Trash2Icon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-	Card,
-	CardAction,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
+import { Card, CardAction, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -70,10 +56,7 @@ export function EntryCard({ name, type }: EntryCardProps) {
 
 			<CardFooter>
 				{type === "password" && (
-					<Badge
-						variant={"secondary"}
-						className="bg-blue-500 text-white dark:bg-blue-600"
-					>
+					<Badge variant={"secondary"} className="bg-blue-500 text-white dark:bg-blue-600">
 						<KeyRoundIcon />
 						Password
 					</Badge>

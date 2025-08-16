@@ -4,13 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { strongholdService } from "@/lib/stronghold";
 
@@ -53,9 +47,7 @@ export function PasswordPrompt() {
 				className="flex flex-col justify-center space-y-8 h-full p-8"
 				aria-disabled={loading}
 			>
-				<h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-					Enter Vault Password
-				</h2>
+				<h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">Enter Vault Password</h2>
 				<FormField
 					defaultValue=""
 					control={form.control}
