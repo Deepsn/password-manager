@@ -29,9 +29,7 @@ interface EntryCardProps {
 }
 
 export function EntryCard({ name, type }: EntryCardProps) {
-  function handleEntryAction(action: string) {
-
-  }
+	function handleEntryAction(action: string) {}
 
 	return (
 		<Card onClick={() => console.log("Card clicked")}>
@@ -45,11 +43,11 @@ export function EntryCard({ name, type }: EntryCardProps) {
 						<CopyIcon />
 					</Button>
 
-					<DropdownMenu >
+					<DropdownMenu>
 						<DropdownMenuTrigger className="cursor-pointer">
-  						<Button variant={"ghost"}>
-  							<EllipsisIcon />
-  						</Button>
+							<Button variant={"ghost"}>
+								<EllipsisIcon />
+							</Button>
 						</DropdownMenuTrigger>
 
 						<DropdownMenuContent className="w-56" align="start">
