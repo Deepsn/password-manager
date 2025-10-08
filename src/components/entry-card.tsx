@@ -30,8 +30,8 @@ export function EntryCard({ name, type }: EntryCardProps) {
 					</Button>
 
 					<DropdownMenu>
-						<DropdownMenuTrigger className="cursor-pointer">
-							<Button variant={"ghost"}>
+						<DropdownMenuTrigger asChild>
+							<Button variant={"ghost"} className="cursor-pointer">
 								<EllipsisIcon />
 							</Button>
 						</DropdownMenuTrigger>
