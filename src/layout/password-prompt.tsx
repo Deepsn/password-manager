@@ -6,7 +6,9 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { strongholdService } from "@/lib/stronghold";
+import { loadedAtom } from "@/lib/jotai/state/password-prompt-atoms";
+import { store } from "@/lib/jotai/store";
+import { vaultManager } from "@/lib/vault";
 
 const formSchema = z.object({
 	password: z
@@ -28,7 +30,9 @@ export function PasswordPrompt() {
 		setLoading(true);
 		setError(undefined);
 
-		await strongholdService.init(values.password).catch((err) => {
+		const success = await vaultManager.unlock(values.password).catch((err) => {
+			console.error(err, err instanceof Error ? err.message : "Unknown error");
+
 			if (err instanceof Error) {
 				setError(err.message);
 				return;
@@ -37,8 +41,24 @@ export function PasswordPrompt() {
 			setError("An unknown error occurred");
 		});
 
+		console.log("Unlock success:", success);
+
+		if (!success) {
+			setLoading(false);
+			setError((prev) => {
+				if (prev !== undefined) return prev;
+				return "Incorrect password";
+			});
+			return;
+		}
+
+		store.set(loadedAtom, true);
 		setLoading(false);
 	}
+
+	// useEffect(() => {
+	// 	setLoading(true);
+	// }, []);
 
 	return (
 		<Form {...form}>

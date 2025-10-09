@@ -1,13 +1,17 @@
 import "./App.css";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { EntryList } from "@/layout/entry-list";
 import { PasswordPrompt } from "@/layout/password-prompt";
-import { strongholdLoadedAtom } from "@/lib/jotai/state/stronghold-atoms";
+import { loadedAtom } from "@/lib/jotai/state/password-prompt-atoms";
 
 function App() {
-	const [loaded] = useAtom(strongholdLoadedAtom);
+	const loaded = useAtomValue(loadedAtom);
 
-	return loaded ? <EntryList /> : <PasswordPrompt />;
+	if (!loaded) {
+		return <PasswordPrompt />;
+	}
+
+	return <EntryList />;
 }
 
 export default App;

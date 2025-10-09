@@ -1,26 +1,43 @@
-use tauri::Manager;
+use crate::types::{Vault, VaultState};
+use crate::vault_commands::{add_entry, list_entries, lock_vault, unlock_vault};
+use std::sync::Mutex;
+use tauri::{generate_handler, Manager};
 
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
+mod storage;
+mod types;
+mod vault;
+mod vault_commands;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::new().build())
+        .plugin(tauri_plugin_opener::init())
+        .invoke_handler(generate_handler![
+            unlock_vault,
+            lock_vault,
+            list_entries,
+            add_entry
+        ])
         .setup(|app| {
-            let salt_path = app
-                .path()
-                .app_local_data_dir()
-                .expect("could not resolve app local data path")
-                .join("salt.txt");
+            #[cfg(debug_assertions)] // only include this code on debug builds
+            {
+                let window = app.get_webview_window("main").unwrap();
+                window.open_devtools();
+                window.close_devtools();
+            }
 
-            app.handle().plugin(tauri_plugin_stronghold::Builder::with_argon2(&salt_path).build())?;
+            let data_buf = app
+                .path()
+                .app_data_dir()
+                .map_err(|_| "failed to get app data dir")?;
+
+            app.manage(VaultState {
+                vault: Mutex::from(Vault::new(data_buf)),
+            });
+
             Ok(())
         })
-        .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
