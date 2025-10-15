@@ -15,7 +15,7 @@ interface EntryCardProps {
 }
 
 export function EntryCard({ name, type }: EntryCardProps) {
-	function handleEntryAction(action: string) {}
+	const handleEntryAction = (action: string) => {};
 
 	return (
 		<Card onClick={() => console.log("Card clicked")}>

@@ -14,7 +14,7 @@ const formSchema = z.object({
 	password: z
 		.string()
 		.min(1, "Password is required")
-		.min(2, "Password must be at least 8 characters")
+		.min(2, "Password must be at least 8 characters") // todo: revert to 8 characters min
 		.max(64, "Password must be at most 64 characters"),
 });
 
@@ -26,7 +26,7 @@ export function PasswordPrompt() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | undefined>(undefined);
 
-	async function onSubmit(values: z.infer<typeof formSchema>) {
+	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		setLoading(true);
 		setError(undefined);
 
@@ -54,11 +54,7 @@ export function PasswordPrompt() {
 
 		store.set(loadedAtom, true);
 		setLoading(false);
-	}
-
-	// useEffect(() => {
-	// 	setLoading(true);
-	// }, []);
+	};
 
 	return (
 		<Form {...form}>
