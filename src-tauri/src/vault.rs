@@ -19,9 +19,8 @@ impl Vault {
     }
 
     pub fn initialize(&mut self, password: &str) -> Result<bool> {
-        let content = self.storage.get_content()?;
-        let entries = rmp_serde::from_slice(&content)?;
-        self.storage.set_content(entries);
+        let empty_storage = vec![];
+        self.storage.set_content(empty_storage);
         self.lock(password)?;
         Ok(true)
     }
