@@ -10,7 +10,14 @@ pub fn unlock_vault(state: State<VaultState>, password: String) -> anyhow_tauri:
         return Ok(vault.unlock(&password).is_ok());
     }
 
-    Ok(vault.initialize(&password).is_ok())
+    let result = vault.initialize(&password);
+    let is_initialized = result.is_ok();
+
+    if !is_initialized {
+        println!("Failed to initialize vault: {:?}", &result.err());
+    }
+
+    Ok(is_initialized)
 }
 
 #[tauri::command]
